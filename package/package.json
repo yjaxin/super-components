@@ -1,21 +1,19 @@
 {
-  "name": "@yjaxin/super-components",
-  "version": "1.0.0",
+  "name": "@yangjiaxin/super-components",
+  "version": "1.0.14",
   "description": "",
   "type": "module",
-  "main": "./build/index.ts",
+  "main": "dist/es/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "files": [
-    "es",
-    "lib"
+    "dist"
   ],
   "author": "Jax",
   "license": "MIT",
@@ -28,12 +26,9 @@
     "type": "git",
     "url": "xxx"
   },
-  "peerDependencies": {
-    "element-plus": "^2.7.4"
-  },
-  "peerDependenciesMeta": {
-    "element-plus": {
-      "optional": true
-    }
+  "devDependencies": {
+    "postcss": "^8.4.38",
+    "rollup-plugin-postcss": "^4.0.2",
+    "vite-plugin-lib-inject-css": "^2.1.1"
   }
 }

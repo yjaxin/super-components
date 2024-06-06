@@ -6,10 +6,12 @@
 <script setup lang="ts">
 
 </script>
+<script>
+export default { name: 'SuperButton' }
+</script>
 
-
-<style scoped>
-  .a {
-    color: red;
-  }
+<style scoped lang="scss">
+.a {
+  color: red;
+}
 </style>

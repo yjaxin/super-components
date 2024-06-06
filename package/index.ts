@@ -1,4 +1,4 @@
-import Button from '../components/Button/index.vue'
+import Button from './components/Button/index.vue'
 
 // 引入封装好的组件
 let arr = [Button]; // 如果有多个其它组件,都可以写到这个数组里
