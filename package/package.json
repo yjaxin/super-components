@@ -1,0 +1,39 @@
+{
+  "name": "@yjaxin/super-components",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./build/index.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "files": [
+    "es",
+    "lib"
+  ],
+  "author": "Jax",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "element-plus",
+    "ui组件库二次封装"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "xxx"
+  },
+  "peerDependencies": {
+    "element-plus": "^2.7.4"
+  },
+  "peerDependenciesMeta": {
+    "element-plus": {
+      "optional": true
+    }
+  }
+}

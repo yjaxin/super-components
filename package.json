@@ -1,0 +1,45 @@
+{
+  "name": "super-components",
+  "version": "1.0.0",
+  "description": "superComponents组件库文档",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress package/build docs",
+    "docs:preview": "vitepress preview docs",
+    "dev": "vite",
+    "build": "vue-tsc && vite package/build",
+    "preview": "vite preview"
+  },
+  "author": "jax",
+  "license": "ISC",
+  "keywords": [
+    "vue",
+    "element-plus",
+    "ui组件库二次封装"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "xxx"
+  },
+  "peerDependencies": {
+    "element-plus": "^2.7.4"
+  },
+  "peerDependenciesMeta": {
+    "element-plus": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "vitepress": "^1.2.3",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "sass": "^1.77.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}

@@ -1,0 +1,16 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+es
+coverage
+package-lock.json
+pnpm-lock.yaml
+cache
+.idea
+.idea/*
+.vscode
+.vscode/*
+.husky/*
+.temp/
