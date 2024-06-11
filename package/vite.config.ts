@@ -3,13 +3,15 @@ import { resolve } from "path";
 import { defineConfig, Plugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
-import {NormalizedOutputOptions, OutputBundle} from "rollup";
 const addCssModifyChunkPlugin = ():Plugin => {
   return {
     name: 'add-css-modifyChunk',
     apply: 'build',
-    generateBundle: (options: NormalizedOutputOptions, bundle: OutputBundle) => {
-      bundle[Object.keys(bundle)[1]].code = "import './index.css'" + '\n' +  bundle[Object.keys(bundle)[1]].code
+    generateBundle: (_options: any, bundle: any) => {
+      bundle['index.js'].imports.forEach(comBundleName => {
+        console.log(comBundleName)
+        bundle[comBundleName].code = "import './index.css'" + '\n' +  bundle[comBundleName].code
+      })
     }
   }
 }

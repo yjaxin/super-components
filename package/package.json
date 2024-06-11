@@ -27,8 +27,8 @@
     "url": "xxx"
   },
   "devDependencies": {
+    "@types/node": "^20.14.2",
     "postcss": "^8.4.38",
-    "rollup-plugin-postcss": "^4.0.2",
     "vite-plugin-lib-inject-css": "^2.1.1"
   }
 }

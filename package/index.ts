@@ -1,14 +1,18 @@
-import Button from './components/Button/index.vue'
 
-// 引入封装好的组件
-let arr = [Button]; // 如果有多个其它组件,都可以写到这个数组里
-
+const modules = import.meta.glob('./components/**/*.vue', {eager: true})
+const getModuleName = (path: string) => {
+  const reg = /\/components\/([^\/]+)/
+  return path.match(reg)[1]
+}
+let moduleMap = {}
+Object.entries(modules).forEach((module: any): void => {
+  moduleMap[getModuleName(module[0])] = module[1].default
+})
 // 批量组件注册
-const install = function (Vue: any) {
-  arr.forEach((com) => {
-    Vue.component(com.name, com);
-  });
+const install = function (Vue: any): void {
+  Object.entries(moduleMap).forEach((com: any): void => {
+    Vue.component(com[0], com[1])
+  })
 };
-
-export default install; // 这个方法使用的时候可以被use调用
+export default install;
 

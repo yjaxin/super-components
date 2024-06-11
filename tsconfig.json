@@ -18,8 +18,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node"]
   },
-  "include": ["package/**/*.ts", "package/**/*.tsx", "package/**/*.vue", "package/*.ts"],
+  "include": [],
+  "exclude": [],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
