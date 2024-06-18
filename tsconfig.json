@@ -19,9 +19,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@/*": ["package/*"]
+    }
   },
-  "include": [],
+  "include": ["./package/global.d.ts"],
   "exclude": [],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

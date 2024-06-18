@@ -156,9 +156,10 @@ export default {
 .code-show {
   border: 1px solid var(--code-show-border-color);
   margin: 30px 0;
+
   .menu {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     border: 1px solid #dcdfe6;
     border-top: none;
     text-align: right;
@@ -169,10 +170,12 @@ export default {
     top: 63px;
     z-index: 19;
     user-select: none;
+
     .item {
       cursor: pointer;
       display: inline-block;
       margin: 0 5px;
+
       svg {
         width: 20px;
         height: 20px;
@@ -180,22 +183,27 @@ export default {
       }
     }
   }
+
   .examples {
     border: 1px solid #dcdfe6;
     padding: 20px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }
+
   .code {
     overflow: hidden;
     transition: all 0.3s;
+
     &.hidden {
       height: 0;
     }
+
     &.show {
       height: 500px;
     }
   }
+
   .close-code {
     width: 100%;
     height: 40px;
@@ -209,6 +217,7 @@ export default {
     right: 0;
     z-index: 19;
     background: var(--vp-nav-bg-color);
+
     .text {
       cursor: pointer;
     }

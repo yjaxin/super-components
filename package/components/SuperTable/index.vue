@@ -18,17 +18,7 @@
 
 <script setup lang="ts">
 import {useAttrs} from "vue";
-import {ElTable} from "element-plus";
-
 const attrs = useAttrs()
-
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
 </script>
 
 <style scoped lang="scss">
