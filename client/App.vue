@@ -1,54 +1,76 @@
 <template>
-  <super-form
-    ref="superFormRef"
-    v-model="formData"
-    :formConfigList="formConfigList"
-    :rules="rules"
-  ></super-form>
-  <el-button @click="submit">22</el-button>
+  <div>
+    <div class="table">
+      <super-table
+        ref="superTableRef"
+        :searchConfig="searchConfig"></super-table>
+    </div>
+    <div class="form">
+      <!--      <super-form-->
+      <!--        :spanConfig="{col: 2}"-->
+      <!--        :formConfigList="formItemListClone"-->
+      <!--      ></super-form>-->
+    </div>
+  </div>
+
 </template>
 <script setup lang="ts">
-import {reactive, ref} from "vue";
-import {Calendar, Search} from '@element-plus/icons-vue'
-import {ItemConfig} from "@/components/SuperForm/index.d";
+import {ref} from "vue";
+import {SuperFormItemType} from "@/components/SuperForm/index.d";
 
-const rules = reactive({
-  a: [
-    {required: true, message: 'Please input Activity name', trigger: 'blur'},
-    {min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur'},
-  ],
-})
-
-const formConfigList = ref<ItemConfig[]>([
-  {
-    prop: 'a',
-    label: '22',
-    componentName: 'ElInput',
-    formItemAttr: {
-      required: true
+const superTableRef = ref()
+const formItemListClone = ref<Array<SuperFormItemType>>(
+  [
+    {
+      prop: 'a4',
+      label: '1qeq232',
+      componentName: "ElSelect",
+      formItemAttr: {
+        required: true,
+      },
+      componentAttr: {
+        options: [{label: '222', value: 333}]
+      }
     },
-    componentAttr: {
-      style: 'width: 240px',
-      placeholder: "Please input",
-      prefixIcon: Search
+    {
+      prop: 'a3',
+      label: '1qeq232',
+      componentName: "ElInput",
+      formItemAttr: {}
     },
-    events: {
-      input: (e) => {
-        console.log(e)
+    {
+      prop: 'a2',
+      label: '1qeq232',
+      componentName: "ElInput",
+      formItemAttr: {}
+    },
+    {
+      prop: 'a',
+      label: '1qeq232',
+      componentName: "ElSelect",
+      formItemAttr: {},
+      componentAttr: {
+        options: [
+          {
+            label: 'a',
+            value: 1
+          }
+        ]
+      },
+      events: {
+        change: (e) => {
+          const res = superTableRef.value.getFormData()
+        }
       }
     }
-  },
-])
-const formData = reactive({
-  a: '3331'
+  ]
+)
+const searchConfig = ref({
+  formConfigList: formItemListClone.value,
 })
-
-const superFormRef = ref()
-const submit = async () => {
-  const res = await superFormRef.value.validate()
-  console.log(res)
-  console.log(superFormRef.value)
-}
 </script>
 <style scoped lang="scss">
+.form {
+  margin-top: 50px;
+}
 </style>

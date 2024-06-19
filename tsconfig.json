@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["node"],
     "paths": {
-      "@/*": ["package/*"]
+      "@/*": ["./package/*"]
     }
   },
   "include": ["./package/global.d.ts"],

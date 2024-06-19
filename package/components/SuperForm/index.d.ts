@@ -2,7 +2,7 @@ const componentNames = ["ElAffix", "ElAlert", "ElAnchor", "ElAnchorLink", "ElAsi
 type ArrayToUnion<T extends readonly string[]> = T[number];
 type ComponentsType = ArrayToUnion<typeof componentNames>;
 
-export declare interface ItemConfig {
+export declare interface SuperFormItemType {
   prop: string,
   label: string,
   componentName: ComponentsType,
@@ -10,5 +10,10 @@ export declare interface ItemConfig {
   componentAttr?: any,
   formItemAttr?: any,
   slotName?: string,
+  transform: (value: any) => void
 }
 
+export declare interface SpanConfigType {
+  col: number,
+  gap: number
+}
