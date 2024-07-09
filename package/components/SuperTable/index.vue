@@ -10,6 +10,8 @@
         v-bind="props.searchConfig"
         :show-footer="false"
         showWidthTable
+        @search="search"
+        @reset="reset"
       >
       </super-form>
     </header>
@@ -24,28 +26,47 @@
         <el-table-column prop="address" label="Address" />
       </el-table>
     </main>
-    <footer></footer>
+    <footer>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
 import {useAttrs} from "vue";
 import {reactive, ref} from "vue";
-import {SuperFormItemType} from "@/components/SuperForm/index.d.ts";
 
 const superFormRef = ref()
 const attrs = useAttrs()
 const props = defineProps<{
   searchConfig: any
 }>()
-const formData = reactive({
-  a: '3331'
-})
+const emits = defineEmits<{
+  // 表格搜索-查询
+  (e: 'search', data: any): void
+  // 表格搜索-重置
+  (e: 'reset'): void
+}>()
+const formData = reactive({})
 
+/**
+ * 获取搜索表单查询内容
+ */
 const getFormData = () =>{
   return superFormRef.value.getFormData()
 }
-
+/**
+ * 表格搜索-查询
+ * @param data 搜索表单数据
+ */
+const search = (data: any) => {
+  emits('search', data)
+}
+/**
+ * 表格搜索-重置
+ */
+const reset = () => {
+  emits('reset')
+}
 defineExpose({
   getFormData
 })

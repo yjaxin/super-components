@@ -17,3 +17,24 @@ export declare interface SpanConfigType {
   col: number,
   gap: number
 }
+export interface SuperFormConfigType {
+  // 表单项配置列表
+  formConfigList?: SuperFormItemType[],
+  // 表单规则
+  rules?: any,
+  // 双向绑定
+  modelValue: any
+  // 确认文本
+  confirmText?: string,
+  // 取消文本
+  cancelText?: string,
+  // 按钮加载动画
+  loading?: boolean,
+  // 是否显示底部操作按钮
+  showFooter?: boolean,
+  // 是否与表格一起显示
+  showWidthTable?: boolean,
+  // 表单布局配置
+  spanConfig?: SpanConfigType
+  disabled?: boolean
+}

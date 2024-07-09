@@ -3,10 +3,10 @@
     <el-form
       ref="superFormRef"
       class="super-form"
-      :model="formModel"
+      :model="modelValue"
       :rules="props.rules"
       :disabled="props.disabled"
-      label-width="80px"
+      label-width="100px"
       :style="{
         'display': 'grid',
         'grid-template-columns': `repeat(${props.spanConfig.col}, 1fr)`,
@@ -24,12 +24,12 @@
         <slot
           v-if="formItem.slotName"
           :name="formItem.slotName"
-          :formModel="formModel"
+          :formModel="modelValue"
           :field="formItem.prop"
         ></slot>
 
         <component v-else
-                   v-model="formModel[formItem.prop]"
+                   v-model="modelValue[formItem.prop]"
                    :is="formItem.componentName"
                    v-bind="formItem.componentAttr"
                    v-on="formItem.events || {}">
@@ -45,7 +45,7 @@
       <!--  表格搜索重置-行内  -->
       <div v-if="props.showWidthTable" class="operate-btns" :style="tableSearchBtnStyles">
         <el-button type="primary" @click="search">查询</el-button>
-        <el-button>重置</el-button>
+        <el-button @click="handleReset">重置</el-button>
         <div class="collapse-toggle" @click="toggle">
           <span>{{ toggleExpand ? '收起' : '展开' }}</span>
           <el-icon v-if="toggleExpand">
@@ -86,7 +86,7 @@ const props = withDefaults(defineProps<{
   // 是否显示底部操作按钮
   showFooter?: boolean,
   // 是否与表格一起显示
-  showWidthTable: boolean,
+  showWidthTable?: boolean,
   // 表单布局配置
   spanConfig?: SpanConfigType
   disabled?: boolean
@@ -97,30 +97,29 @@ const props = withDefaults(defineProps<{
   showFooter: true,
   showWidthTable: false,
   disabled: false,
+  modelValue: {},
   spanConfig: {
     col: 4,
   }
 })
 const emits = defineEmits<{
+  // 双向绑定
   (e: 'update:modelValue', data: any): void
+  // 表单确认
   (e: 'confirm', data: any): void
+  // 表单取消
   (e: 'cancel'): void
+  // 表格搜索-查询
+  (e: 'search', data: any): void
+  // 表格搜索-重置
+  (e: 'reset'): void
 }>()
 
 const attrs = useAttrs()
 const formModel = ref({})
 
 watch(() => props.modelValue, (newV) => {
-  if (newV) {
-    formModel.value = newV
-  }
-}, {
-  deep: true,
-  immediate: true
-})
-
-watch(() => formModel, (newV) => {
-  emits('update:modelValue', _.cloneDeep(newV))
+  emits('update:modelValue', newV)
 }, {
   deep: true,
   immediate: true
@@ -144,7 +143,7 @@ const setRef = (event: any, field: string) => {
 const handleSave = () => {
   superFormRef.value.validate().then((valid: boolean) => {
     if (valid) {
-      const data = getTransformData(props.formConfigList, formModel)
+      const data = getTransformData(props.formConfigList, props.modelValue)
       emits('confirm', data)
     }
   })
@@ -203,10 +202,19 @@ const tableSearchBtnStyles = computed(() => {
   }
 })
 /**
- * 表单查询
+ * 查询
  */
 const search = () => {
+  emits('search', props.modelValue)
 }
+
+/**
+ * 重置
+ */
+const handleReset = () => {
+  emits('reset')
+}
+
 
 const formItemListClone = ref([])
 watch(() => props.formConfigList, (newV) => {
@@ -254,6 +262,9 @@ defineExpose({
   //    }
   //  }
   //}
+  :deep(.el-date-editor.el-date-editor--date) {
+    flex: 1;
+  }
 
   .operate-btns {
     display: flex;
