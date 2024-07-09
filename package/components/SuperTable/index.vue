@@ -46,8 +46,9 @@ const emits = defineEmits<{
   // 表格搜索-重置
   (e: 'reset'): void
 }>()
-const formData = reactive({})
-
+let formData = reactive({
+  ElInput: 2222
+})
 /**
  * 获取搜索表单查询内容
  */
