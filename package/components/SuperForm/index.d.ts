@@ -10,7 +10,7 @@ export declare interface SuperFormItemType {
   componentAttr?: any,
   formItemAttr?: any,
   slotName?: string,
-  transform: (value: any) => void
+  transform?: (value: any) => void
 }
 
 export declare interface SpanConfigType {

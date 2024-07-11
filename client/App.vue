@@ -3,39 +3,61 @@
     <div class="table">
       <super-table
         @search="search"
+        :data="sourceData"
         ref="superTableRef"
+        :tableColumn="tableColumn"
+        @selection-change="selectchange"
         :searchConfig="searchConfig">
+        <template #2>
+          <el-input size="small" placeholder="Type to search" />
+          <el-button>22</el-button>
+        </template>
       </super-table>
     </div>
-<!--    <div class="form">-->
-<!--      <super-form-->
-<!--        @confirm="confirm"-->
-<!--        v-model="formData"-->
-<!--        :spanConfig="{col: 1}"-->
-<!--        :formConfigList="formItemListClone"-->
-<!--      >-->
-<!--        <template #customInput="a">-->
-<!--          <el-input v-model="formData['customInput']" placeholder="请输入"></el-input>-->
-<!--        </template>-->
-<!--      </super-form>-->
-<!--    </div>-->
   </div>
 
 </template>
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {SuperFormItemType} from "@/components/SuperForm/index.d";
 
 const superTableRef = ref()
-const formData = ref({
-  ElSelect:333,
-  ElInput:222,
-  customInput:111,
+onMounted(() => {
 })
-
-const search = (data) => {
+const selectchange = (e: any) => {
+  console.log(e)
+}
+const formData = ref({
+  ElSelect: 333,
+  ElInput: 222,
+  customInput: 111,
+})
+const sourceData = ref([
+  {name: '12', age: 12},
+  {name: 13, age: 13}
+])
+const tableColumn = ref([
+  {
+    type: 'selection',
+  },
+  {
+    prop: 'name',
+    label: '姓名',
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+  },
+  {
+    prop: 'address',
+    label: '地址',
+    slotName: '2',
+  }
+])
+const search = (data: any) => {
   console.log(data)
 }
+
 const formItemListClone = ref<Array<SuperFormItemType>>(
   [
     {
@@ -54,7 +76,7 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
       label: 'ElInput',
       componentName: "ElInput",
       formItemAttr: {},
-      transform:(v) => {
+      transform: (v) => {
         return {
           'c': v
         }
@@ -64,27 +86,19 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
       prop: 'ElDatePicker',
       label: 'ElDatePicker',
       componentName: "ElDatePicker",
-      formItemAttr: {}
-    },
-    {
-      prop: 'customInput',
-      label: 'Slot',
-      slotName: 'customInput',
-      formItemAttr: { required: true },
-      events: {
-        input: (e) => {
-          console.log(e)
-        }
+      formItemAttr: {},
+      componentAttr: {
+        placeholder: '请选1择'
       }
     },
     {
       prop: 'ElSwitch',
       label: 'ElSwitch',
       componentName: "ElSwitch",
-      formItemAttr: {},
+      formItemAttr: {required: false},
       componentAttr: {},
       events: {
-        change: (e) => {
+        change: (e: any) => {
           console.log(formData.value)
         }
       }
@@ -93,12 +107,8 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
 )
 const searchConfig = ref({
   formConfigList: formItemListClone.value,
-  spanConfig: { col: 4 },
-  query: {
-    ElSelect:333,
-    ElInput:222,
-    customInput:111,
-  }
+  spanConfig: {col: 3},
+  // defaultQuery: {ElInput: 22}
 })
 const confirm = (data) => {
   console.log(data)

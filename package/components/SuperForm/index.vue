@@ -205,9 +205,10 @@ const tableSearchBtnStyles = computed(() => {
  * 查询
  */
 const search = () => {
-  emits('search', props.modelValue)
+  validate().then(res => {
+    emits('search', props.modelValue)
+  })
 }
-
 /**
  * 重置
  */
@@ -254,14 +255,6 @@ defineExpose({
 <style scoped lang="scss">
 .super-form-container {
   overflow: hidden;
-  //
-  //.super-form {
-  //  .el-form-item {
-  //    :deep(.el-form-item__label) {
-  //
-  //    }
-  //  }
-  //}
   :deep(.el-date-editor.el-date-editor--date) {
     flex: 1;
   }

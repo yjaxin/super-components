@@ -21,7 +21,7 @@ features:
   - icon: 💡
     title: 快速安装 # 标题
     details:  # 简介
-    link: /comDoc/install # 地址
+    link: /install # 地址
     linkText: 了解更多 # 地址文案
   - icon: 💡
     title: 快速使用 # 标题

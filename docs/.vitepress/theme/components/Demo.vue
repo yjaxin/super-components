@@ -153,6 +153,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+:deep(.el-table__header){
+  margin: 0!important;
+}
+:deep(.el-table__body){
+  margin: 0!important;
+}
 .code-show {
   border: 1px solid var(--code-show-border-color);
   margin: 30px 0;

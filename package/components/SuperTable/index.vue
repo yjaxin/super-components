@@ -1,6 +1,6 @@
 <template>
   <div class="super-table-container">
-    <header>
+    <header v-if="props.searchConfig?.formConfigList">
       <super-form
         ref="superFormRef"
         v-model="formData"
@@ -17,13 +17,26 @@
     </header>
     <main>
       <el-table
+        ref="superTableRef"
         :header-cell-style="{ background: '#f1f1f1' }"
         v-loading
         border
-        v-bind="attrs">
-        <el-table-column prop="date" label="Date" width="180" />
-        <el-table-column prop="name" label="Name" width="180" />
-        <el-table-column prop="address" label="Address" />
+        v-bind="attrs"
+      >
+        <template
+          v-for="(column, colIndex) in props.tableColumn"
+          :key="colIndex">
+          <el-table-column v-if="['header'].includes(column.slotName)">
+            <template #[column.slotName]="scope">
+              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>
+            </template>
+          </el-table-column>
+          <el-table-column v-else v-bind="column">
+            <template v-if="column.slotName" #default="scope">
+              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>
+            </template>
+          </el-table-column>
+        </template>
       </el-table>
     </main>
     <footer>
@@ -32,13 +45,17 @@
 </template>
 
 <script setup lang="ts">
-import {useAttrs} from "vue";
+import {onMounted, useAttrs, useSlots, watch} from "vue";
 import {reactive, ref} from "vue";
+import _ from "lodash";
 
 const superFormRef = ref()
+const superTableRef = ref()
 const attrs = useAttrs()
+const slots = useSlots()
 const props = defineProps<{
-  searchConfig: any
+  searchConfig: any,
+  tableColumn: Array<any>
 }>()
 const emits = defineEmits<{
   // 表格搜索-查询
@@ -46,13 +63,26 @@ const emits = defineEmits<{
   // 表格搜索-重置
   (e: 'reset'): void
 }>()
-let formData = reactive({
-  ElInput: 2222
+// 初始化的查询参数，需初始化存储
+const freezeQuery = ref(props.searchConfig?.defaultQuery)
+
+let formData = ref()
+watch(() => freezeQuery.value, (newV) => {
+  if(newV) {
+    formData.value = _.cloneDeep(newV)
+  }
+}, {
+  deep: true,
+  immediate: true,
+  once: true
+})
+
+onMounted(() => {
 })
 /**
  * 获取搜索表单查询内容
  */
-const getFormData = () =>{
+const getFormData = () => {
   return superFormRef.value.getFormData()
 }
 /**
@@ -66,10 +96,12 @@ const search = (data: any) => {
  * 表格搜索-重置
  */
 const reset = () => {
+  formData.value = freezeQuery.value ? _.cloneDeep(freezeQuery.value) : {}
   emits('reset')
 }
 defineExpose({
-  getFormData
+  getSearchFormData: getFormData,
+  superTableRef,
 })
 </script>
 

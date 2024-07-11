@@ -14,9 +14,10 @@ export default defineConfig({
       {
         text: '菜单',
         items: [
+          { text: '安装', link: '/install' },
+          { text: 'superTable表格', link: '/table' },
           { text: 'Markdown Examples', link: '/markdown-examples' },
           { text: 'Runtime API Examples', link: '/api-examples' },
-          { text: '表格', link: '/table' }
         ]
       }
     ],

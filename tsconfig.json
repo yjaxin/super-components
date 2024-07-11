@@ -24,7 +24,7 @@
       "@/*": ["./package/*"]
     }
   },
-  "include": ["./package/global.d.ts", "client/*.vue", "client/**/*", "docs/.vitepress/**/*.ts"],
+  "include": ["./package/global.d.ts",],
   "exclude": [],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
