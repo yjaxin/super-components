@@ -8,9 +8,20 @@
         :tableColumn="tableColumn"
         @selection-change="selectchange"
         :searchConfig="searchConfig">
-        <template #2>
-          <el-input size="small" placeholder="Type to search" />
-          <el-button>22</el-button>
+        <template #nameSlot>
+          <span>姓名插槽-李四</span>
+        </template>
+        <template #nameHeaderSlot1>
+          <span>姓名表头插槽1</span>
+        </template>
+        <template #nameHeaderSlot2>
+          <span>姓名表头插槽2</span>
+        </template>
+        <template #nameHeaderSlot3>
+          <span>姓名表头插槽2</span>
+        </template>
+        <template #addressSlot>
+          <span>地址插槽</span>
         </template>
       </super-table>
     </div>
@@ -33,16 +44,32 @@ const formData = ref({
   customInput: 111,
 })
 const sourceData = ref([
-  {name: '12', age: 12},
-  {name: 13, age: 13}
+  {name: '张三', age: 13, address: '重庆市'}
 ])
 const tableColumn = ref([
   {
     type: 'selection',
+    width: 320
   },
   {
     prop: 'name',
     label: '姓名',
+    width: 120,
+    headerSlot: 'nameHeaderSlot1',
+    children: [
+      {
+        label: 2,
+        headerSlot: 'nameHeaderSlot2',
+        children: [
+          {
+            label: 3,
+            prop: 'name',
+            slotName: 'nameSlot',
+            headerSlot: 'nameHeaderSlot3',
+          }
+        ]
+      }
+    ]
   },
   {
     prop: 'age',
@@ -51,7 +78,8 @@ const tableColumn = ref([
   {
     prop: 'address',
     label: '地址',
-    slotName: '2',
+    width: 520,
+    slotName: 'addressSlot'
   }
 ])
 const search = (data: any) => {

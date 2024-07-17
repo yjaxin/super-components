@@ -14,11 +14,11 @@ Super Components 支持最近两个版本的浏览器。
 # 选择一个你喜欢的包管理器
 # NPM
 
-$ npm install element-plus --save
+$ npm install @yangjiaxin/super-components --save
 
 # Yarn
-$ yarn add element-plus
+$ yarn add @yangjiaxin/super-components
 
 # pnpm
-$ pnpm install element-plus
+$ pnpm install @yangjiaxin/super-components
 ```

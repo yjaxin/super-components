@@ -8,16 +8,17 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      // { text: 'Examples', link: '/markdown-examples' }
     ],
     sidebar: [
       {
         text: '菜单',
         items: [
           { text: '安装', link: '/install' },
+          { text: '快速开始', link: '/quickstart' },
           { text: 'superTable表格', link: '/table' },
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
+          // { text: 'Markdown Examples', link: '/markdown-examples' },
+          // { text: 'Runtime API Examples', link: '/api-examples' },
         ]
       }
     ],
@@ -32,7 +33,7 @@ export default defineConfig({
       next: '下一篇'
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/yjaxin/super-components' }
     ],
     outline: 'deep',
     contributors: true,

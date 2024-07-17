@@ -1,6 +1,6 @@
 {
   "name": "@yangjiaxin/super-components",
-  "version": "1.0.14",
+  "version": "1.0.16",
   "description": "",
   "type": "module",
   "main": "dist/es/index.js",
@@ -15,6 +15,7 @@
   "files": [
     "dist"
   ],
+  "homepage": "https://docs.jaxaimy.top/",
   "author": "Jax",
   "license": "MIT",
   "keywords": [

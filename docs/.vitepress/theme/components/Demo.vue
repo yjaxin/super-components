@@ -153,11 +153,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+:deep(table) {
+  display: table !important;
+}
 :deep(.el-table__header){
   margin: 0!important;
+  overflow-x: inherit;
 }
 :deep(.el-table__body){
   margin: 0!important;
+  overflow-x: inherit;
 }
 .code-show {
   border: 1px solid var(--code-show-border-color);

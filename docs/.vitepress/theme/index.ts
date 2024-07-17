@@ -5,6 +5,7 @@ import "element-plus/dist/index.css";
 import ElementPlus from 'element-plus'
 import Demo from './components/Demo.vue'
 import {defineAsyncComponent} from "vue";
+import './custom.css'
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {

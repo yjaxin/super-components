@@ -26,16 +26,26 @@
         <template
           v-for="(column, colIndex) in props.tableColumn"
           :key="colIndex">
-          <el-table-column v-if="['header'].includes(column.slotName)">
-            <template #[column.slotName]="scope">
-              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>
+          <!--    表头header插槽      -->
+          <table-column v-bind="column">
+            <template v-for="(_, key, index) in slots" :key="index" #[key]>
+              <slot :name="key"></slot>
             </template>
-          </el-table-column>
-          <el-table-column v-else v-bind="column">
-            <template v-if="column.slotName" #default="scope">
-              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>
-            </template>
-          </el-table-column>
+<!--            <template v-if="column.slotName" #default="scope">-->
+<!--              <slot :name="column.slotName" v-bind="scope"></slot>-->
+<!--            </template>-->
+          </table-column>
+<!--          <el-table-column v-if="['header'].includes(column.slotName)">-->
+<!--            <template #[column.slotName]="scope">-->
+<!--              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
+<!--          &lt;!&ndash;    常规column和插槽      &ndash;&gt;-->
+<!--          <el-table-column v-else v-bind="column">-->
+<!--            <template v-if="column.slotName" #default="scope">-->
+<!--              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
         </template>
       </el-table>
     </main>
@@ -48,6 +58,7 @@
 import {onMounted, useAttrs, useSlots, watch} from "vue";
 import {reactive, ref} from "vue";
 import _ from "lodash";
+import TableColumn from "./components/TableColumn/index.vue";
 
 const superFormRef = ref()
 const superTableRef = ref()
@@ -68,7 +79,7 @@ const freezeQuery = ref(props.searchConfig?.defaultQuery)
 
 let formData = ref()
 watch(() => freezeQuery.value, (newV) => {
-  if(newV) {
+  if (newV) {
     formData.value = _.cloneDeep(newV)
   }
 }, {

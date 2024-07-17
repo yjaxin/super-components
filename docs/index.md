@@ -9,13 +9,13 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /markdown-examples
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+      link: /quickstart
+#    - theme: brand
+#      text: Markdown Examples
+#      link: /markdown-examples
+#    - theme: alt
+#      text: API Examples
+#      link: /api-examples
 
 features:
   - icon: 💡
@@ -26,7 +26,7 @@ features:
   - icon: 💡
     title: 快速使用 # 标题
     details:  # 简介
-    link: /comDoc/install # 地址
+    link: /install # 地址
     linkText: 了解更多 # 地址文案
 ---
 
