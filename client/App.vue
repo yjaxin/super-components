@@ -20,8 +20,8 @@
         <template #nameHeaderSlot3>
           <span>姓名表头插槽2</span>
         </template>
-        <template #addressSlot>
-          <span>地址插槽</span>
+        <template #addressSlot="scope">
+          <span>地址插槽{{scope.row}}</span>
         </template>
       </super-table>
     </div>

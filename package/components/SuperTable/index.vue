@@ -28,8 +28,8 @@
           :key="colIndex">
           <!--    表头header插槽      -->
           <table-column v-bind="column">
-            <template v-for="(_, key, index) in slots" :key="index" #[key]>
-              <slot :name="key"></slot>
+            <template v-for="(_, key, index) in slots" :key="index" #[key]="{ row, column, $index }">
+              <slot :name="key" :row="row" :column="column" :$index="$index"></slot>
             </template>
 <!--            <template v-if="column.slotName" #default="scope">-->
 <!--              <slot :name="column.slotName" v-bind="scope"></slot>-->

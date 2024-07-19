@@ -83,3 +83,126 @@ Table 组件提供了单选的支持， 只需要配置 `highlight-current-row` 
 <<< @/example/Table/table-select-single.vue
 
 </Demo>
+
+## 多选
+你也可以选择多行。
+
+实现多选非常简单: 在`tableColumn`添加一列 `{ type: selection, width: 80 }`，即可；
+
+<Demo url="Table/table-select-multiple.vue">
+
+<<< @/example/Table/table-select-multiple.vue
+
+</Demo>
+
+## 排序
+对表格进行排序，可快速查找或对比数据。
+
+在列中设置 `sortable` 属性即可实现以该列为基准的排序， 接受一个 `Boolean`，默认为 `false`。 可以通过 `Table` 的 `default-sort` 属性设置默认的排序列和排序顺序。 可以使用
+`sort-method` 或者 `sort-by` 使用自定义的排序规则。 如果需要后端排序，需将 `sortable` 设置为 `custom`，同时在 `Table` 上监听 `sort-change` 事件， 在事件回调中可以获取当前排序的字段名和排序顺序，从而向接口请求排序后的表格数据。 在本例中，我们还使用了 `formatter` 属性，它用于格式化指定列的值， 接受一个 `Function`，会传入两个参数：`row` 和 `column`， 可以根据自己的需求进行处理。
+
+<Demo url="Table/table-sort.vue">
+
+<<< @/example/Table/table-sort.vue
+
+</Demo>
+
+## 筛选
+对表格进行筛选，可快速查找到自己想看的数据。
+
+在列中设置 `filters` 和 `filter-method` 属性即可开启该列的筛选， `filters` 是一个数组，`filter-method` 是一个方法，它用于决定某些数据是否显示， 会传入三个参数：`value`, `row` 和 `column`。
+
+
+<Demo url="Table/table-filter.vue">
+
+<<< @/example/Table/table-filter.vue
+
+</Demo>
+
+## 自定义列模板
+自定义列的显示内容，可组合其他组件使用。
+
+通过 `slot` 可以获取到 row, column, $index 的数据，用法参考 demo。
+
+<Demo url="Table/table-custom-column.vue">
+
+<<< @/example/Table/table-custom-column.vue
+
+</Demo>
+
+## 自定义表头
+表头支持自定义。
+
+通过设置 `headerSlot` 来自定义表头。
+
+<Demo url="Table/table-custom-header.vue">
+
+<<< @/example/Table/table-custom-header.vue
+
+</Demo>
+
+## 展开行
+当行内容过多并且不想显示横向滚动条时，可以使用 Table 展开行功能。
+
+通过设置 `{type: 'expand', slotName: 'name'}` 可以开启展开行功能， 内置的 `el-table-column` 的模板会被渲染成为展开行的内容，展开行可访问的属性与使用自定义列模板时的 
+`slot` 相同。
+
+<Demo url="Table/table-expand.vue">
+
+<<< @/example/Table/table-expand.vue
+
+</Demo>
+
+## 树形数据与懒加载
+支持树类型的数据的显示。 当 `row` 中包含 `children` 字段时，被视为树形数据。 渲染嵌套数据需要 `prop` 的 `row-key`。 此外，子行数据可以异步加载。 设置 `Table` 的`lazy`属性为 `true` 与加载函数 `load` 。 通过指定 `row` 中的`hasChildren`字段来指定哪些行是包含子节点。 `children` 与`hasChildren`都可以通过 `tree-props` 配置。
+
+<Demo url="Table/table-tree.vue">
+
+<<< @/example/Table/table-tree.vue
+
+</Demo>
+
+## 表尾合计行
+若表格展示的是各类数字，可以在表尾显示各列的合计。
+将 `show-summary` 设置为`true`就会在表格尾部展示合计行。 默认情况下，对于合计行，第一列不进行数据求合操作，而是显示「合计」二字（可通过`sum-text`配置），其余列会将本列所有数值进行求合操作，并显示出来。 当然，你也可以定义自己的合计逻辑。 使用 `summary-method` 并传入一个方法，返回一个数组，这个数组中的各项就会显示在合计行的各列中，可以是一个 `VNode` 或 `String`， 具体可以参考本例中的第二个表格。
+
+<Demo url="Table/table-summary.vue">
+
+<<< @/example/Table/table-summary.vue
+
+</Demo>
+
+## 合并行或列
+多行或多列共用一个数据时，可以合并行或列。
+通过给 `table` 传入`span-method`方法可以实现合并行或列， 方法的参数是一个对象，里面包含当前行 `row`、当前列 `column`、当前行号 `rowIndex`、当前列号 `columnIndex` 四个属性。 该函数可以返回一个包含两个元素的数组，第一个元素代表 `rowspan`，第二个元素代表 `colspan`。 也可以返回一个键名为 `rowspan` 和 `colspan` 的对象。
+
+<Demo url="Table/table-span.vue">
+
+<<< @/example/Table/table-span.vue
+
+</Demo>
+
+## 自定义索引
+通过设置列配置 `{type: index, index: () => {}}` 可以自定义索引。 该属性传入数字时，将作为索引的起始值。 也可以传入一个方法，它提供当前行的行号（从 0 
+开始）作为参数，返回值将作为索引展示。
+
+<Demo url="Table/table-custom-index.vue">
+
+<<< @/example/Table/table-custom-index.vue
+
+</Demo>
+
+## 表格布局
+通过属性 `table-layout` 可以指定表格中单元格、行和列的布局方式
+
+
+
+<Demo url="Table/table-layout.vue">
+
+<<< @/example/Table/table-layout.vue
+
+</Demo>
+
+
+
+

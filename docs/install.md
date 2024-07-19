@@ -12,8 +12,8 @@ Super Components 支持最近两个版本的浏览器。
 [Vite](https://vitejs.dev/) 或 [webpack](https://webpack.js.org/)。
 ```
 # 选择一个你喜欢的包管理器
-# NPM
 
+# NPM
 $ npm install @yangjiaxin/super-components --save
 
 # Yarn

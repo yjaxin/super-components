@@ -2,12 +2,12 @@
   <!-- 单级表头 -->
   <el-table-column v-bind="attrs" v-if="!attrs.children || !attrs.children.length">
     <!--  表头插槽  -->
-    <template v-if="attrs.headerSlot" #header="scope">
-      <slot :name="attrs.headerSlot" v-bind="scope"></slot>
+    <template v-if="attrs.headerSlot" #header="{column, $index}">
+      <slot :name="attrs.headerSlot" :column="column" :$index="$index"></slot>
     </template>
     <!--  内容插槽  -->
-    <template v-if="attrs.slotName" #default="scope">
-      <slot :name="attrs.slotName" v-bind="scope"></slot>
+    <template v-if="attrs.slotName" #default="{ row, column, $index }">
+      <slot :name="attrs.slotName" :row="row" :column="column" :index="$index"></slot>
     </template>
   </el-table-column>
   <!-- 多级表头 -->
@@ -27,20 +27,14 @@
       </table-column>
     </template>
   </el-table-column>
-  <a></a>
 </template>
 
 <script setup lang="ts">
 import TableColumn from './index.vue'
 import {useAttrs, useSlots} from "vue";
+import {c} from "vite/dist/node/types.d-aGj9QkWt";
 
 const attrs = useAttrs()
 const slots = useSlots()
 const props = defineProps<{}>()
 </script>
-
-<style scoped lang="scss">
-a {
-  display: none
-}
-</style>
