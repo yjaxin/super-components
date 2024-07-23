@@ -7,7 +7,10 @@
         ref="superTableRef"
         :tableColumn="tableColumn"
         @selection-change="selectchange"
-        :searchConfig="searchConfig">
+        :searchConfig="searchConfig"
+        @current-change="curPageChange"
+        :remoteMethod="getTableDataApi"
+      >
       </super-table>
     </div>
   </div>
@@ -28,12 +31,53 @@ const formData = ref({
   ElInput: 222,
   customInput: 111,
 })
+const curPageChange = () => {
+}
 const sourceData = ref([
-  {name: '张三', age: 13, address: '重庆市'}
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
+  {name: '张三', age: 13, address: '重庆市'},
 ])
+const request = (params) => {
+  console.log('queryParams', params)
+  return new Promise(resolve =>  {
+    resolve({
+      data: {
+        list: [
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '张三', age: 13, address: '重庆市'},
+        ]
+      }
+    })
+  })
+}
+const getTableDataApi = (data) => {
+  return request({ url:'xxx', data })
+}
 const tableColumn = ref([
   {
-    type: 'selection',
+    type: 'index',
     width: 60
   },
   {
@@ -52,7 +96,7 @@ const tableColumn = ref([
   }
 ])
 const search = (data: any) => {
-  console.log(data)
+  // console.log(data)
 }
 
 const formItemListClone = ref<Array<SuperFormItemType>>(
@@ -104,7 +148,7 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
 )
 const searchConfig = ref({
   formConfigList: formItemListClone.value,
-  // defaultQuery: {ElInput: 22}
+  defaultQuery: {ElInput: 22}
 })
 const confirm = (data) => {
   console.log(data)

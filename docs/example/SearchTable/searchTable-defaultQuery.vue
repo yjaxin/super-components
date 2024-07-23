@@ -5,6 +5,7 @@
         :data="sourceData"
         ref="superTableRef"
         :tableColumn="tableColumn"
+
         :searchConfig="searchConfig">
       </super-table>
     </div>

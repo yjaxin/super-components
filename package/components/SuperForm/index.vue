@@ -213,7 +213,10 @@ const search = () => {
  * 重置
  */
 const handleReset = () => {
-  emits('reset')
+  validate().then(res => {
+    console.log(res)
+    emits('reset')
+  })
 }
 
 
