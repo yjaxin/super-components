@@ -4,12 +4,10 @@
       <super-form
         ref="superFormRef"
         v-model="formData"
-        :spanConfig="{
-          col: 3,
-        }"
         v-bind="props.searchConfig"
         :show-footer="false"
         showWidthTable
+        label-position="left"
         @search="search"
         @reset="reset"
       >

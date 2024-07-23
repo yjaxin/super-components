@@ -1,5 +1,5 @@
 # Table 表格
-用于展示多条结构类似的数据， 可对数据进行排序、筛选、对比或其他自定义操作。
+用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。
 ## 基础表格
 基础的表格展示用法。
 
@@ -195,13 +195,44 @@ Table 组件提供了单选的支持， 只需要配置 `highlight-current-row` 
 ## 表格布局
 通过属性 `table-layout` 可以指定表格中单元格、行和列的布局方式
 
-
-
 <Demo url="Table/table-layout.vue">
 
 <<< @/example/Table/table-layout.vue
 
 </Demo>
+
+## Table API
+
+### Table 属性
+完全支持element-plus Table属性。[官方文档](https://element-plus.org/zh-CN/component/table.html#table-api)
+### Table 事件
+完全支持element-plus Table事件。[官方文档](https://element-plus.org/zh-CN/component/table.html#table-api)
+### Table Expose
+完全支持element-plus Table Expose的事件，具体使用见Demo。[官方文档](https://element-plus.org/zh-CN/component/table.html#table-api)
+
+<Demo url="Table/table-expose.vue">
+
+<<< @/example/Table/table-expose.vue
+
+</Demo>
+
+## Table-column API
+
+### Table-column 属性
+完全支持element-plus Table-column官方属性。[官方文档](https://element-plus.org/zh-CN/component/table.html#table-column-%E6%8F%92%E6%A7%BD)
+
+### Table-column 插槽
+
+表头插槽：tableColumn中配置 `headerSlot` 属性 
+
+默认插槽：tableColumn中配置 `slotName` 属性 
+
+<Demo url="Table/table-header-slot.vue">
+
+<<< @/example/Table/table-header-slot.vue
+
+</Demo>
+
 
 
 

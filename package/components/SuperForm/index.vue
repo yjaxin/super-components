@@ -6,7 +6,7 @@
       :model="modelValue"
       :rules="props.rules"
       :disabled="props.disabled"
-      label-width="100px"
+      label-width="80px"
       :style="{
         'display': 'grid',
         'grid-template-columns': `repeat(${props.spanConfig.col}, 1fr)`,

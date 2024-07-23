@@ -13,9 +13,9 @@ export declare interface SuperFormItemType {
   transform?: (value: any) => void
 }
 
-export declare interface SpanConfigType {
-  col: number,
-  gap: number
+export interface SpanConfigType {
+  col?: number,
+  gap?: number
 }
 export interface SuperFormConfigType {
   // 表单项配置列表

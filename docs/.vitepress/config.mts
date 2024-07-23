@@ -17,6 +17,7 @@ export default defineConfig({
           { text: '安装', link: '/install' },
           { text: '快速开始', link: '/quickstart' },
           { text: 'superTable表格', link: '/table' },
+          { text: 'searchFormTable表格', link: '/searchTable' },
           // { text: 'Markdown Examples', link: '/markdown-examples' },
           // { text: 'Runtime API Examples', link: '/api-examples' },
         ]
