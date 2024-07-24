@@ -14,6 +14,18 @@ import App from './App.vue'
 const app = createApp(App)
 
 app.use(ElementPlus)
-app.use(SuperComponents)
+
+/**
+ * 此处配置为表格接口查询字段key设置
+ * 默认值为
+ * {pageKey: 'page',pageSizeKey: 'pageSize',listKey: 'list',totalKey: 'total'}
+**/
+
+app.use(SuperComponents, {
+  pageKey: 'page', // 远程搜索请求参数 page
+  pageSizeKey: 'pageSize', // 远程搜索请求参数 pageSize
+  listKey: 'list', // 远程搜索接口响应 list（表格数据）
+  totalKey: 'total', // 远程搜索接口响应 total（数据总数）
+})
 app.mount('#app')
 ```

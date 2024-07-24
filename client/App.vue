@@ -11,6 +11,11 @@
         @current-change="curPageChange"
         :remoteMethod="getTableDataApi"
       >
+        <template #toolbar>
+          <el-button>22</el-button>
+          <el-button>22</el-button>
+          <el-button>22</el-button>
+        </template>
       </super-table>
     </div>
   </div>
@@ -34,6 +39,7 @@ const formData = ref({
 const curPageChange = () => {
 }
 const sourceData = ref([
+  {name: '张三1', age: 13, address: '重庆市'},
   {name: '张三', age: 13, address: '重庆市'},
   {name: '张三', age: 13, address: '重庆市'},
   {name: '张三', age: 13, address: '重庆市'},
@@ -67,7 +73,8 @@ const request = (params) => {
           {name: '张三', age: 13, address: '重庆市'},
           {name: '张三', age: 13, address: '重庆市'},
           {name: '张三', age: 13, address: '重庆市'},
-        ]
+        ],
+        total: 13
       }
     })
   })
@@ -127,15 +134,27 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
       prop: 'ElDatePicker',
       label: 'ElDatePicker',
       componentName: "ElDatePicker",
-      formItemAttr: {},
+      formItemAttr: { },
       componentAttr: {
         placeholder: '请选1择'
       }
     },
     {
-      prop: 'ElSwitch',
-      label: 'ElSwitch',
-      componentName: "ElSwitch",
+      prop: 'ElInput1',
+      label: 'ElInput1',
+      componentName: "ElInput",
+      formItemAttr: {required: false},
+      componentAttr: {},
+      events: {
+        change: (e: any) => {
+          console.log(formData.value)
+        }
+      }
+    },
+    {
+      prop: 'ElInput2',
+      label: 'ElInput1',
+      componentName: "ElInput",
       formItemAttr: {required: false},
       componentAttr: {},
       events: {
@@ -148,7 +167,7 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
 )
 const searchConfig = ref({
   formConfigList: formItemListClone.value,
-  defaultQuery: {ElInput: 22}
+  defaultQuery: {ElInput: 22, ElSelect: 333}
 })
 const confirm = (data) => {
   console.log(data)

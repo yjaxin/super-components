@@ -13,6 +13,9 @@
       >
       </super-form>
     </header>
+    <div class="toolbar" v-if="slots.toolbar">
+      <slot name="toolbar"></slot>
+    </div>
     <main>
       <el-table
         ref="superTableRef"
@@ -53,7 +56,7 @@
         v-if="defaultPaginationConfig.pagination"
         v-model:current-page="currentPage"
         v-model:page-size="defaultPaginationConfig.curPageSize"
-        :page-sizes="defaultPaginationConfig.pageSize"
+        :page-sizes="defaultPaginationConfig.pageSizes"
         :size="defaultPaginationConfig.size"
         :background="defaultPaginationConfig.background"
         :layout="defaultPaginationConfig.layout"
@@ -80,15 +83,15 @@ const slots = useSlots()
 const tableData = ref([])
 const defaultPaginationConfig = ref({
   pagination: true,
-  pageSize : [10, 20, 50, 100],
+  pageSizes : [10, 20, 50, 100],
   curPageSize: 10,
   layout: 'total, sizes, prev, pager, next, jumper',
-  background: true,
+  background: false,
   size: 'default'
 })
 interface PaginationConfig {
   pagination?: boolean;
-  pageSize?: Array<number>;
+  pageSizes?: Array<number>;
   curPageSize?: number;
   layout?: string,
   background?: any,
@@ -100,10 +103,17 @@ interface Props {
   tableColumn: Array<any>;
   paginationConfig?: PaginationConfig;
   remoteMethod?: Function;
+  globalTableConfig?: any;
   data?: Array<any>
 }
 const props = withDefaults(defineProps<Props>(), {
   searchConfig: {},
+  globalTableConfig: {
+    pageKey: 'page',
+    pageSizeKey: 'pageSize',
+    listKey: 'list',
+    totalKey: 'total',
+  }
 })
 const emits = defineEmits<{
   // 表格搜索-查询
@@ -139,7 +149,7 @@ watch(() => props.paginationConfig, (newConfig:PaginationConfig) => {
 // 表格数据
 watch(() => props.data, (newData: Array<any>) => {
   // 使用远程搜索时传入的data不会被赋值
-  if(props.remoteMethod) {
+  if(!props.remoteMethod) {
     tableData.value = newData
   }
 }, {
@@ -165,13 +175,24 @@ const initRemoteMethod = () => {
 
 // 初始化获取表格数据
 const getTableDataByRemoteMethod = async () => {
+  if(!props.remoteMethod) return
   // 开启分页
   if(defaultPaginationConfig.value.pagination) {
-    queryParams.value['page'] = currentPage.value
-    queryParams.value['pageSize'] = defaultPaginationConfig.value.curPageSize
+    queryParams.value[props.globalTableConfig.pageKey] = currentPage.value
+    queryParams.value[props.globalTableConfig.pageSizeKey] = defaultPaginationConfig.value.curPageSize
   }
-  console.log(queryParams.value)
   const res = await props.remoteMethod(queryParams.value)
+  // 表格数据key是否正确
+  if(res.data.hasOwnProperty(props.globalTableConfig.listKey)) {
+    tableData.value = res.data[props.globalTableConfig.listKey]
+  }else {
+    ERROR(`property ${props.globalTableConfig.listKey} is not exit`)
+  }
+  if(res.data.hasOwnProperty(props.globalTableConfig.totalKey)) {
+    total.value = res.data[props.globalTableConfig.totalKey]
+  }else {
+    ERROR(`property ${props.globalTableConfig.totalKey} is not exit`)
+  }
 }
 /**
  * 获取搜索表单查询内容
@@ -185,16 +206,18 @@ const getFormData = () => {
  */
 const search = (data: any) => {
   queryParams.value = data
+  currentPage.value = 1
   getTableDataByRemoteMethod()
   emits('search', data)
 }
 /**
  * 表格搜索-重置
  */
-const reset = () => {
+const reset = async () => {
   formData.value = freezeQuery.value ? _.cloneDeep(freezeQuery.value) : {}
   queryParams.value = _.cloneDeep(formData.value)
-  getTableDataByRemoteMethod()
+  currentPage.value = 1
+  await getTableDataByRemoteMethod()
   emits('reset')
 }
 
@@ -207,6 +230,7 @@ const currentPage = ref(1)
  * @param val
  */
 const handleSizeChange = (val: number) => {
+  currentPage.value = 1
   defaultPaginationConfig.value.curPageSize = val
   getTableDataByRemoteMethod()
   emits('size-change', val)
@@ -221,6 +245,10 @@ const handleCurrentChange = (val: number) => {
   getTableDataByRemoteMethod()
   emits('current-change', val)
 }
+
+const ERROR = (error: string) => {
+   throw Error(error)
+}
 defineExpose({
   getSearchFormData: getFormData,
   superTableRef,
@@ -228,6 +256,11 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
+
+.toolbar {
+  margin-bottom: 20px;
+}
+
 .operate-btns {
   display: flex;
   justify-content: flex-end;

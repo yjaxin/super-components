@@ -6,13 +6,23 @@ import ElementPlus from 'element-plus'
 import Demo from './components/Demo.vue'
 import {defineAsyncComponent} from "vue";
 import './custom.css'
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     // 注册自定义全局组件
     app.component('Demo', Demo)
-    app.use(ElementPlus)
-    app.use(superComponents)
+    app.use(ElementPlus, {
+      locale: zhCn
+    })
+    app.use(superComponents, {
+      globalTableConfig: {
+        pageKey: 'page',
+        pageSizeKey: 'pageSize',
+        listKey: 'list',
+        totalKey: 'total',
+      }
+    })
     const components = import.meta.glob('../../example/*/*.vue');
     // 遍历组件模块实现自动注册
     for (const [key, value] of Object.entries(components)) {

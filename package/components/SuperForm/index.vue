@@ -46,7 +46,7 @@
       <div v-if="props.showWidthTable" class="operate-btns" :style="tableSearchBtnStyles">
         <el-button type="primary" @click="search">查询</el-button>
         <el-button @click="handleReset">重置</el-button>
-        <div class="collapse-toggle" @click="toggle">
+        <div v-if="showExpand" class="collapse-toggle" @click="toggle">
           <span>{{ toggleExpand ? '收起' : '展开' }}</span>
           <el-icon v-if="toggleExpand">
             <ArrowUp />
@@ -98,9 +98,9 @@ const props = withDefaults(defineProps<{
   showWidthTable: false,
   disabled: false,
   modelValue: {},
-  spanConfig: {
+  spanConfig: () => ({
     col: 4,
-  }
+  })
 })
 const emits = defineEmits<{
   // 双向绑定
@@ -129,6 +129,12 @@ watch(() => props.modelValue, (newV) => {
 const superFormRef = ref()
 // formItemRef
 const formItemRef = ref({})
+
+// 是否显示 展开/收起 操作
+const showExpand = computed(() => {
+  return props.formConfigList.length / props.spanConfig.col > 1
+})
+
 /**
  * ref设置
  * @param field
@@ -213,10 +219,7 @@ const search = () => {
  * 重置
  */
 const handleReset = () => {
-  validate().then(res => {
-    console.log(res)
-    emits('reset')
-  })
+  emits('reset')
 }
 
 

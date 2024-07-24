@@ -164,6 +164,9 @@ export default {
   margin: 0!important;
   overflow-x: inherit;
 }
+:deep(ul) {
+  padding-left: 0;
+}
 .code-show {
   border: 1px solid var(--code-show-border-color);
   margin: 30px 0;

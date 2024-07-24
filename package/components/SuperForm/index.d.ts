@@ -15,7 +15,6 @@ export declare interface SuperFormItemType {
 
 export interface SpanConfigType {
   col?: number,
-  gap?: number
 }
 export interface SuperFormConfigType {
   // 表单项配置列表

@@ -5,7 +5,9 @@
         :data="sourceData"
         ref="superTableRef"
         :tableColumn="tableColumn"
-        :searchConfig="searchConfig">
+        :searchConfig="searchConfig"
+        :remoteMethod="getTableDataApi"
+      >
       </super-table>
     </div>
   </div>
@@ -15,6 +17,7 @@
 import {ref} from "vue";
 
 const superTableRef = ref()
+
 const sourceData = ref([
   {name: '张三', age: 13, address: '重庆市'}
 ])
@@ -40,11 +43,6 @@ const formItemListClone = ref(
       prop: 'gender',
       label: '性别',
       componentName: "ElSelect",
-      formItemAttr: {
-        rules: [
-          {required: true, message: '请选择性别'}
-        ]
-      },
       componentAttr: {
         placeholder: '请选择',
         options: [
@@ -74,12 +72,28 @@ const formItemListClone = ref(
 const searchConfig = ref({
   formConfigList: formItemListClone.value,
   spanConfig: {col: 2},
-  labelWidth: 60,
-  defaultQuery: {
-    gender: 0,
-    name: 'Jax',
-    date: Date.now()
-  }
 })
 
+/**
+ * 封装的请求
+ * @formModel formModel 搜索表单
+ */
+const getTableDataApi = (formModel: any) => {
+  return request({url: 'xxx', method: 'get', data: formModel})
+}
+
+const request = (params: any) => {
+  return new Promise(resolve => {
+    // 表格数据响应字段可在全局注册组件时统一配置，见 快速开始 章节
+    resolve({
+      data: {
+        list: [
+          {name: '张三', age: 13, address: '重庆市'},
+          {name: '李四', age: 22, address: '重庆市'},
+        ],
+        total: 2
+      }
+    })
+  })
+}
 </script>

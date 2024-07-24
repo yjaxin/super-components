@@ -2,6 +2,7 @@
   <div>
       <super-table
         :tableColumn="tableColumn"
+        :paginationConfig="{ pagination: false }"
         :data="sourceData">
       </super-table>
   </div>
