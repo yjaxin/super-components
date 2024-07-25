@@ -20,7 +20,7 @@
       <el-table
         ref="superTableRef"
         :header-cell-style="{ background: '#f1f1f1' }"
-        v-loading
+        v-loading="loading"
         border
         v-bind="attrs"
         :data="tableData"
@@ -33,21 +33,7 @@
             <template v-for="(_, key, index) in slots" :key="index" #[key]="{ row, column, $index }">
               <slot :name="key" :row="row" :column="column" :$index="$index"></slot>
             </template>
-            <!--            <template v-if="column.slotName" #default="scope">-->
-            <!--              <slot :name="column.slotName" v-bind="scope"></slot>-->
-            <!--            </template>-->
           </table-column>
-          <!--          <el-table-column v-if="['header'].includes(column.slotName)">-->
-          <!--            <template #[column.slotName]="scope">-->
-          <!--              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>-->
-          <!--            </template>-->
-          <!--          </el-table-column>-->
-          <!--          &lt;!&ndash;    常规column和插槽      &ndash;&gt;-->
-          <!--          <el-table-column v-else v-bind="column">-->
-          <!--            <template v-if="column.slotName" #default="scope">-->
-          <!--              <slot :name="column.slotName" :row="scope.row" :$index="scope.$index"></slot>-->
-          <!--            </template>-->
-          <!--          </el-table-column>-->
         </template>
       </el-table>
     </main>
@@ -79,6 +65,7 @@ const superFormRef = ref()
 const superTableRef = ref()
 const attrs = useAttrs()
 const slots = useSlots()
+const loading = ref(false)
 // 表格数据
 const tableData = ref([])
 const defaultPaginationConfig = ref({
@@ -181,7 +168,9 @@ const getTableDataByRemoteMethod = async () => {
     queryParams.value[props.globalTableConfig.pageKey] = currentPage.value
     queryParams.value[props.globalTableConfig.pageSizeKey] = defaultPaginationConfig.value.curPageSize
   }
+  loading.value = true
   const res = await props.remoteMethod(queryParams.value)
+  loading.value = false
   // 表格数据key是否正确
   if(res.data.hasOwnProperty(props.globalTableConfig.listKey)) {
     tableData.value = res.data[props.globalTableConfig.listKey]

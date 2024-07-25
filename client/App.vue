@@ -55,28 +55,30 @@ const sourceData = ref([
   {name: '张三', age: 13, address: '重庆市'},
 ])
 const request = (params) => {
-  console.log('queryParams', params)
+
   return new Promise(resolve =>  {
-    resolve({
-      data: {
-        list: [
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '张三', age: 13, address: '重庆市'},
-        ],
-        total: 13
-      }
-    })
+    setTimeout(() => {
+      resolve({
+        data: {
+          list: [
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '张三', age: 13, address: '重庆市'},
+          ],
+          total: 13
+        }
+      })
+    }, 2000)
   })
 }
 const getTableDataApi = (data) => {
@@ -125,6 +127,7 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
       componentName: "ElInput",
       formItemAttr: {},
       transform: (v) => {
+        console.log(v)
         return {
           'c': v
         }
@@ -136,7 +139,10 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
       componentName: "ElDatePicker",
       formItemAttr: { },
       componentAttr: {
-        placeholder: '请选1择'
+        type:"daterange",
+        placeholder: '请选择',
+        startPlaceholder:"开始日期",
+        endPlaceholder:"结束日期"
       }
     },
     {

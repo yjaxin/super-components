@@ -7,6 +7,8 @@ import Demo from './components/Demo.vue'
 import {defineAsyncComponent} from "vue";
 import './custom.css'
 import zhCn from "element-plus/es/locale/lang/zh-cn";
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
@@ -24,6 +26,9 @@ export default {
       }
     })
     const components = import.meta.glob('../../example/*/*.vue');
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component)
+    }
     // 遍历组件模块实现自动注册
     for (const [key, value] of Object.entries(components)) {
       // 拼接组件注册的 name

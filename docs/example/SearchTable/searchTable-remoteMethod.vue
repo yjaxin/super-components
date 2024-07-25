@@ -2,7 +2,6 @@
   <div>
     <div class="table">
       <super-table
-        :data="sourceData"
         ref="superTableRef"
         :tableColumn="tableColumn"
         :searchConfig="searchConfig"
@@ -18,9 +17,6 @@ import {ref} from "vue";
 
 const superTableRef = ref()
 
-const sourceData = ref([
-  {name: '张三', age: 13, address: '重庆市'}
-])
 const tableColumn = ref([
   {
     prop: 'name',
@@ -85,15 +81,18 @@ const getTableDataApi = (formModel: any) => {
 const request = (params: any) => {
   return new Promise(resolve => {
     // 表格数据响应字段可在全局注册组件时统一配置，见 快速开始 章节
-    resolve({
-      data: {
-        list: [
-          {name: '张三', age: 13, address: '重庆市'},
-          {name: '李四', age: 22, address: '重庆市'},
-        ],
-        total: 2
-      }
-    })
+    setTimeout(() => {
+      resolve({
+        data: {
+          list: [
+            {name: '张三', age: 13, address: '重庆市'},
+            {name: '李四', age: 22, address: '重庆市'},
+          ],
+          total: 2
+        }
+      })
+    }, 500)
   })
+
 }
 </script>

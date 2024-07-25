@@ -38,7 +38,7 @@ const tableColumn = ref([
 const formItemListClone = ref(
   [
     {
-      prop: 'gender',
+      prop: 'gender1',
       label: '性别',
       componentName: "ElSelect",
       componentAttr: {
@@ -50,7 +50,7 @@ const formItemListClone = ref(
       }
     },
     {
-      prop: 'name',
+      prop: 'name1',
       label: '姓名',
       componentName: "ElInput",
       componentAttr: {
@@ -58,7 +58,7 @@ const formItemListClone = ref(
       }
     },
     {
-      prop: 'date',
+      prop: 'date1',
       label: '日期',
       componentName: "ElDatePicker",
       componentAttr: {

@@ -83,7 +83,6 @@
           </div>
         </el-collapse-transition>
       </div>
-
     </div>
   </ClientOnly>
 </template>
@@ -101,53 +100,16 @@ export default {
   },
   mounted() {
     this.dynamicComponent = this.url.replace(/\/|\.vue/g, '');
-    // this.$nextTick(() => {
-    //   import(`/zo-methods/zoannComponentsDoc/examples/${this.url}`).then(module => {
-    //     this.dynamicComponent = module.default;
-    //   });
-    // });
   },
   methods: {
-    copy() {
-      const text = this.$refs.codeRef.textContent.replace('vue', '');
-      const r = this.copyText(text);
-      if (r) {
-        this.$message.success('已复制');
-      } else {
-        this.$message.error('复制失败');
-      }
-    },
     handleCopy() {
-      if (this.open && document.execCommand('copy')) {
-        const range = document.createRange();
-        range.selectNode(this.$refs.codeRef.childNodes[1].childNodes[2]); //获取复制内容的 id 选择器
-        const selection = window.getSelection(); //创建 selection对象
-        if (selection.rangeCount > 0) selection.removeAllRanges(); //如果页面已经有选取了的话，会自动删除这个选区，没有选区的话，会把这个选取加入选区
-        selection.addRange(range); //将range对象添加到selection选区当中，会高亮文本块
-        document.execCommand('copy'); //复制选中的文字到剪贴板
-        selection.removeRange(range); // 移除选中的元素
-        this.$message.success('已复制');
-      } else {
-        this.copy();
+      if (this.open) {
+        const innerText = this.$refs.codeRef.innerText.slice(3)
+        navigator.clipboard.writeText(innerText).then(() => {
+          this.$message.success('已复制');
+        });
       }
     },
-    copyText(value) {
-      try {
-        var input = document.createElement('input');
-        document.body.appendChild(input);
-        input.setAttribute('value', value);
-        input.select();
-        if (document.execCommand('copy')) {
-          document.execCommand('copy');
-          document.body.removeChild(input);
-          return true;
-        }
-        document.body.removeChild(input);
-        return false;
-      } catch (_a) {
-        return false;
-      }
-    }
   }
 };
 </script>
@@ -183,7 +145,6 @@ export default {
     left: 0;
     top: 63px;
     z-index: 19;
-    user-select: none;
 
     .item {
       cursor: pointer;

@@ -6,8 +6,7 @@
         ref="superTableRef"
         :tableColumn="tableColumn"
         :searchConfig="searchConfig"
-        @search="search"
-        @reset="reset">
+        @search="search">
       </super-table>
     </div>
   </div>
@@ -40,31 +39,24 @@ const tableColumn = ref([
 const formItemListClone = ref(
   [
     {
-      prop: 'gender4',
-      label: '性别',
-      componentName: "ElSelect",
-      componentAttr: {
-        placeholder: '请选择',
-        options: [
-          {label: '男', value: 1},
-          {label: '女', value: 0}
-        ]
-      }
-    },
-    {
-      prop: 'name4',
-      label: '姓名',
-      componentName: "ElInput",
-      componentAttr: {
-        placeholder: '请输入'
-      }
-    },
-    {
-      prop: 'date4',
+      prop: 'date',
       label: '日期',
       componentName: "ElDatePicker",
       componentAttr: {
-        placeholder: '请选择'
+        type: "daterange",
+        placeholder: '请选择',
+        startPlaceholder: "开始日期",
+        endPlaceholder: "结束日期",
+        format: 'YYYY-MM-DD',
+        valueFormat: 'YYYY-MM-DD'
+      },
+      transform:(date: any) => {
+        if(date) {
+          return {
+            startTime: date[0],
+            endTime: date[1],
+          }
+        }
       }
     },
   ]
@@ -72,12 +64,9 @@ const formItemListClone = ref(
 const searchConfig = ref({
   formConfigList: formItemListClone.value,
   spanConfig: {col: 2},
-  labelWidth: 60
 })
+
 const search = (formData: any) => {
   console.log(formData)
-}
-const reset = () => {
-  console.log('表单已重置')
 }
 </script>

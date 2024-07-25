@@ -212,7 +212,8 @@ const tableSearchBtnStyles = computed(() => {
  */
 const search = () => {
   validate().then(res => {
-    emits('search', props.modelValue)
+    const data = getTransformData(props.formConfigList, props.modelValue)
+    emits('search', data)
   })
 }
 /**
