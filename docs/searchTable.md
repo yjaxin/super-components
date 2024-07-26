@@ -32,16 +32,6 @@
 
 </Demo>
 
-## 表单 查询/重置 事件
-
-super-table 新增事件`search`和`reset`
-
-<Demo url="SearchTable/searchTable-search-btn.vue">
-
-<<< @/example/SearchTable/searchTable-search-btn.vue
-
-</Demo>
-
 ## 表单默认值
 
 在 `searchConfig` 添加 `defaultQuery`，设置表单默认值；设置默认值后重置会重置为defaultQuery。
@@ -73,15 +63,57 @@ super-table 新增事件`search`和`reset`
 
 </Demo>
 
+## 动态设置表单属性
+
+表单中组件属性动态配置。例如select组件的options值来源于接口等等。
+> **注意：设置动态属性时，属性值需要为一个响应式变量，勿使用a.value，需使用响应式变量a**
+
+<Demo url="SearchTable/searchTable-dynamic-formItem-options.vue">
+
+<<< @/example/SearchTable/searchTable-dynamic-formItem-options.vue
+
+</Demo>
+
+## 表单联动
+
+需设置`defaultQuery`表单默认值，key为表单项的`prop`。
+
+<Demo url="SearchTable/searchTable-form-linkage.vue">
+
+<<< @/example/SearchTable/searchTable-form-linkage.vue
+
+</Demo>
+
+
+## 禁用分页
+
+在superTable设置属性`paginationConfig: { pagination: false }`
+
+<Demo url="SearchTable/searchTable-close-pagination.vue">
+
+<<< @/example/SearchTable/searchTable-close-pagination.vue
+
+</Demo>
+
+## 表单 查询/重置 事件
+
+super-table 新增事件`search`和`reset`， search参数为表单搜索值。
+
+<Demo url="SearchTable/searchTable-search-btn.vue">
+
+<<< @/example/SearchTable/searchTable-search-btn.vue
+
+</Demo>
+
 ## 属性
 
-带搜索表格新增配置
+带搜索表格新增配置，**搜索表单配置、分页器配置、远程搜索配置**。
 
-| 属性名              | 说明       | 类型                 | default                                                                                                                                                   |
-|------------------|----------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| searchConfig     | 搜索表单相关配置 | `searchConfig`     | ——                                                                                                                                                        |
-| paginationConfig | 分页器配置    | `paginationConfig` | `{ pagination: true, pageSizes: [10, 20, 50, 100], curPageSize:10, layout:'total, sizes, prev, pager, next, jumper', background: false, size: 'default'}` |
-| remoteMethod     | 远程查询方法   | `Promise`          | ——                                                                                                                                                        |
+| 属性名              | 说明       | 类型                 | default                                                                                                                                                  |
+|------------------|----------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| searchConfig     | 搜索表单相关配置 | `searchConfig`     | ——                                                                                                                                                       |
+| paginationConfig | 分页器配置    | `paginationConfig` | `{ pagination: true,pageSizes: [10, 20, 50, 100], curPageSize:10, layout:'total, sizes, prev, pager, next, jumper', background: false, size: 'default'}` |
+| remoteMethod     | 远程查询方法   | `Promise`          | ——                                                                                                                                                       |
 
 ### 搜索表单配置
 
@@ -89,13 +121,14 @@ super-table 新增事件`search`和`reset`
 
 #### searchConfig
 
-| 属性名            | 说明      | 类型                      | default      |
-|----------------|---------|-------------------------|--------------|
-| spanConfig     | 表格布局配置  | `Object`                | `{ col: 4 }` |
-| formConfigList | 搜索表单配置  | `Array<formItemConfig>` | ——           |
-| defaultQuery   | 搜索表单默认值 | `Object`                | ——           |
+| 属性名            | 说明           | 类型                      | default      |
+|----------------|--------------|-------------------------|--------------|
+| spanConfig     | 表格布局配置       | `Object`                | `{ col: 4 }` |
+| formConfigList | 搜索表单配置       | `Array<formItemConfig>` | ——           |
+| defaultQuery   | 搜索表单默认值      | `Object`                | ——           |
+| el-form属性      | 支持ElForm所有属性 | ——                      | ——           |
 
-#### formItemConfig
+##### formItemConfig
 
 | 属性名           | 说明                                                                                                                                                                                | 类型         | default |
 |---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------|
@@ -107,7 +140,7 @@ super-table 新增事件`search`和`reset`
 | events        | 组件事件，与element-plus表单组件事件配置一致 [Components Attributes](https://element-plus.org/zh-CN/component/autocomplete.html)                                                                  | `Object`   | ——      |
 | transform     | 表单项值预处理                                                                                                                                                                           | `Funciton` | ——      |
 
-#### spanConfig
+##### spanConfig
 
 | 属性名 | 说明        | 类型       | default |
 |-----|-----------|----------|---------|

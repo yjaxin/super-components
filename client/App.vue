@@ -3,7 +3,6 @@
     <div class="table">
       <super-table
         @search="search"
-        :data="sourceData"
         ref="superTableRef"
         :tableColumn="tableColumn"
         @selection-change="selectchange"
@@ -12,14 +11,13 @@
         :remoteMethod="getTableDataApi"
       >
         <template #toolbar>
-          <el-button>22</el-button>
+          <el-button>123</el-button>
           <el-button>22</el-button>
           <el-button>22</el-button>
         </template>
       </super-table>
     </div>
   </div>
-
 </template>
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
@@ -31,32 +29,12 @@ onMounted(() => {
 const selectchange = (e: any) => {
   console.log(e)
 }
-const formData = ref({
-  ElSelect: 333,
-  ElInput: 222,
-  customInput: 111,
-})
+
 const curPageChange = () => {
 }
-const sourceData = ref([
-  {name: '张三1', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-  {name: '张三', age: 13, address: '重庆市'},
-])
 const request = (params) => {
 
-  return new Promise(resolve =>  {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve({
         data: {
@@ -64,25 +42,15 @@ const request = (params) => {
             {name: '张三', age: 13, address: '重庆市'},
             {name: '张三', age: 13, address: '重庆市'},
             {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
-            {name: '张三', age: 13, address: '重庆市'},
           ],
-          total: 13
+          total: 3
         }
       })
     }, 2000)
   })
 }
 const getTableDataApi = (data) => {
-  return request({ url:'xxx', data })
+  return request({url: 'xxx', data})
 }
 const tableColumn = ref([
   {
@@ -105,20 +73,22 @@ const tableColumn = ref([
   }
 ])
 const search = (data: any) => {
-  // console.log(data)
+  console.log(data)
 }
-
+let options = ref([])
 const formItemListClone = ref<Array<SuperFormItemType>>(
   [
     {
       prop: 'ElSelect',
       label: 'ElSelect',
       componentName: "ElSelect",
-      formItemAttr: {
-        required: true,
-      },
       componentAttr: {
-        options: [{label: '222', value: 333}]
+        options,
+      },
+      events: {
+        change: (v) => {
+          searchConfig.value.defaultQuery.ElInput = v
+        }
       }
     },
     {
@@ -126,58 +96,118 @@ const formItemListClone = ref<Array<SuperFormItemType>>(
       label: 'ElInput',
       componentName: "ElInput",
       formItemAttr: {},
-      transform: (v) => {
-        console.log(v)
-        return {
-          'c': v
-        }
-      }
     },
     {
       prop: 'ElDatePicker',
       label: 'ElDatePicker',
       componentName: "ElDatePicker",
-      formItemAttr: { },
+      formItemAttr: {},
       componentAttr: {
-        type:"daterange",
+        type: "daterange",
         placeholder: '请选择',
-        startPlaceholder:"开始日期",
-        endPlaceholder:"结束日期"
+        startPlaceholder: "开始日期",
+        endPlaceholder: "结束日期"
       }
     },
     {
       prop: 'ElInput1',
       label: 'ElInput1',
       componentName: "ElInput",
-      formItemAttr: {required: false},
-      componentAttr: {},
-      events: {
-        change: (e: any) => {
-          console.log(formData.value)
-        }
-      }
     },
     {
       prop: 'ElInput2',
       label: 'ElInput1',
       componentName: "ElInput",
-      formItemAttr: {required: false},
-      componentAttr: {},
-      events: {
-        change: (e: any) => {
-          console.log(formData.value)
-        }
-      }
     }
   ]
 )
+onMounted(() => {
+  setTimeout(() => {
+    options.value = [{label: 1, value: 1}]
+  }, 300)
+})
+
 const searchConfig = ref({
   formConfigList: formItemListClone.value,
-  defaultQuery: {ElInput: 22, ElSelect: 333}
+  defaultQuery: {ElInput: 22}
 })
-const confirm = (data) => {
-  console.log(data)
+
+
+const obj: any = {
+  foo: 123,
+  bar: 456
 }
+// obj[Symbol.toStringTag] = 'a'
+// console.log(obj.toString())
+obj[Symbol.iterator] = () => {
+  const keys = Object.keys(obj)
+  return {
+    next: () => {
+      const done = keys.length === 0
+      const key = done ? undefined : keys.shift()
+      const value = done ? undefined : {[key]: obj[key]}
+      return {value, done}
+    }
+  }
+}
+const name = Symbol('name')
+
+const a = () => {
+  return Promise.resolve(1)
+}
+const b = () => {
+  return Promise.resolve(2)
+}
+const c = () => {
+  return Promise.resolve(3)
+}
+
+const funcQueue = [a, b, c]
+
+function* foo() {
+  let i = 0
+  while (true) {
+    yield funcQueue[i]
+    i++
+  }
+}
+
+const Foo = foo()
+
+const showNextPopup = async () => {
+  const { done, value } = Foo.next()
+  if(!done && value) {
+    const res = await value()
+    console.log(res)
+  }
+}
+
+showNextPopup()
+showNextPopup()
+showNextPopup()
+
+// console.log(aResult)
+
+// console.log(Foo.next())
+// console.log(Foo.next())
+// console.log(Foo.next())
+// console.log(name[Symbol])
+// const iterator = obj[Symbol.iterator]()
+// console.log(iterator.next())
+// console.log(iterator.next())
+// console.log(iterator.next())
+// for (const value of obj) {
+//   console.log(value)
+// }
+// const array = [1]
+// const iterator = array[Symbol.iterator]()
+// console.log(iterator.next())
+// console.log(iterator.next())
+// console.log(iterator.next())
+// for (const item of obj){
+//   console.log(item)
+// }
+
 </script>
 <style scoped lang="scss">
 .form {

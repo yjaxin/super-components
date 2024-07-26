@@ -23,7 +23,7 @@ features:
     details:  # 简介
     link: /install # 地址
     linkText: 了解更多 # 地址文案
-  - icon: 💡
+  - icon: 📦
     title: 快速使用 # 标题
     details:  # 简介
     link: /quickstart # 地址

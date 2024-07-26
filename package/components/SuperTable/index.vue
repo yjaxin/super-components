@@ -70,12 +70,13 @@ const loading = ref(false)
 const tableData = ref([])
 const defaultPaginationConfig = ref({
   pagination: true,
-  pageSizes : [10, 20, 50, 100],
+  pageSizes: [10, 20, 50, 100],
   curPageSize: 10,
   layout: 'total, sizes, prev, pager, next, jumper',
   background: false,
   size: 'default'
 })
+
 interface PaginationConfig {
   pagination?: boolean;
   pageSizes?: Array<number>;
@@ -93,6 +94,7 @@ interface Props {
   globalTableConfig?: any;
   data?: Array<any>
 }
+
 const props = withDefaults(defineProps<Props>(), {
   searchConfig: {},
   globalTableConfig: {
@@ -114,19 +116,18 @@ const emits = defineEmits<{
 }>()
 // 初始化的查询参数，需初始化存储
 const freezeQuery = ref(props.searchConfig?.defaultQuery)
-
 let formData = ref()
 watch(() => freezeQuery.value, (newV) => {
   if (newV) {
-    formData.value = _.cloneDeep(newV)
+    formData.value = _.cloneDeep({ ...formData.value, ...newV,})
   }
 }, {
   deep: true,
   immediate: true,
-  once: true
 })
+
 // 分页器配置
-watch(() => props.paginationConfig, (newConfig:PaginationConfig) => {
+watch(() => props.paginationConfig, (newConfig: PaginationConfig) => {
   defaultPaginationConfig.value = Object.assign(defaultPaginationConfig.value, newConfig)
 }, {
   deep: true,
@@ -136,7 +137,7 @@ watch(() => props.paginationConfig, (newConfig:PaginationConfig) => {
 // 表格数据
 watch(() => props.data, (newData: Array<any>) => {
   // 使用远程搜索时传入的data不会被赋值
-  if(!props.remoteMethod) {
+  if (!props.remoteMethod) {
     tableData.value = newData
   }
 }, {
@@ -154,7 +155,7 @@ onMounted(async () => {
 const queryParams = ref({})
 const initRemoteMethod = () => {
   // 是否远程搜索
-  if(props.remoteMethod && _.isFunction(props.remoteMethod)) {
+  if (props.remoteMethod && _.isFunction(props.remoteMethod)) {
     queryParams.value = props.searchConfig?.defaultQuery ?? {}
     getTableDataByRemoteMethod()
   }
@@ -162,9 +163,9 @@ const initRemoteMethod = () => {
 
 // 初始化获取表格数据
 const getTableDataByRemoteMethod = async () => {
-  if(!props.remoteMethod) return
+  if (!props.remoteMethod) return
   // 开启分页
-  if(defaultPaginationConfig.value.pagination) {
+  if (defaultPaginationConfig.value.pagination) {
     queryParams.value[props.globalTableConfig.pageKey] = currentPage.value
     queryParams.value[props.globalTableConfig.pageSizeKey] = defaultPaginationConfig.value.curPageSize
   }
@@ -172,14 +173,14 @@ const getTableDataByRemoteMethod = async () => {
   const res = await props.remoteMethod(queryParams.value)
   loading.value = false
   // 表格数据key是否正确
-  if(res.data.hasOwnProperty(props.globalTableConfig.listKey)) {
+  if (res.data.hasOwnProperty(props.globalTableConfig.listKey)) {
     tableData.value = res.data[props.globalTableConfig.listKey]
-  }else {
+  } else {
     ERROR(`property ${props.globalTableConfig.listKey} is not exit`)
   }
-  if(res.data.hasOwnProperty(props.globalTableConfig.totalKey)) {
+  if (res.data.hasOwnProperty(props.globalTableConfig.totalKey)) {
     total.value = res.data[props.globalTableConfig.totalKey]
-  }else {
+  } else {
     ERROR(`property ${props.globalTableConfig.totalKey} is not exit`)
   }
 }
@@ -236,7 +237,7 @@ const handleCurrentChange = (val: number) => {
 }
 
 const ERROR = (error: string) => {
-   throw Error(error)
+  throw Error(error)
 }
 defineExpose({
   getSearchFormData: getFormData,
