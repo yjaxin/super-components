@@ -4,6 +4,10 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "SuperComponents",
   description: "SuperComponents",
+  head: [
+    ['meta', { name: 'keywords', content: '便捷、高效的使用Element plus' }],
+    ['meta', { property: 'og:title', content: 'superComponents' }],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

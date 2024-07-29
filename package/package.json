@@ -1,6 +1,6 @@
 {
   "name": "@yangjiaxin/super-components",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "带表单搜索、分页的表格组件",
   "type": "module",
   "main": "dist/es/index.js",
@@ -26,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "xxx"
+    "url": "https://github.com/yjaxin/super-components"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",

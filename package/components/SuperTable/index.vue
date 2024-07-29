@@ -26,8 +26,8 @@
         :data="tableData"
       >
         <template
-          v-for="(column, colIndex) in props.tableColumn"
-          :key="colIndex">
+          v-for="(column) in props.tableColumn"
+          :key="column.label">
           <!--    表头header插槽      -->
           <table-column v-bind="column">
             <template v-for="(_, key, index) in slots" :key="index" #[key]="{ row, column, $index }">
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, useAttrs, useSlots, watch} from "vue";
+import { onMounted, useAttrs, useSlots, watch} from "vue";
 import {reactive, ref} from "vue";
 import _ from "lodash";
 import TableColumn from "./components/TableColumn/index.vue";
@@ -66,6 +66,7 @@ const superTableRef = ref()
 const attrs = useAttrs()
 const slots = useSlots()
 const loading = ref(false)
+
 // 表格数据
 const tableData = ref([])
 const defaultPaginationConfig = ref({

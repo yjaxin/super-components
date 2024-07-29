@@ -170,6 +170,10 @@ export default {
     overflow: hidden;
     transition: all 0.3s;
 
+    > :deep(div) {
+      margin-top: 0;
+    }
+
     &.hidden {
       height: 0;
     }
