@@ -65,7 +65,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {computed, nextTick, onMounted, ref, useAttrs, watch} from "vue";
+import {computed, ref, useAttrs, watch} from "vue";
 import type {SpanConfigType, SuperFormItemType} from "./index";
 import {getTransformData} from "./hooks";
 import _ from "lodash";
@@ -118,12 +118,32 @@ const emits = defineEmits<{
 const attrs = useAttrs()
 const formModel = ref({})
 
-watch(() => props.modelValue, (newV) => {
-  emits('update:modelValue', newV)
-}, {
-  deep: true,
-  immediate: true
+const modelValue = computed({
+  get() {
+    return new Proxy(props.modelValue, {
+      get(target, p, receiver) {
+        return Reflect.get(target, p)
+      },
+      set(target, p, newValue, receiver) {
+        emits('update:modelValue', {
+          ...target,
+          [p]: newValue
+        })
+        return true
+      },
+    })
+  },
+  set(val) {
+    emits('update:modelValue', val)
+  }
 })
+
+// watch(() => props.modelValue, (newV) => {
+//   emits('update:modelValue', newV)
+// }, {
+//   deep: true,
+//   immediate: true
+// })
 
 // 表单实例
 const superFormRef = ref()
