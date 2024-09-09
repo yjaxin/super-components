@@ -25,6 +25,9 @@
         v-bind="attrs"
         :data="tableData"
       >
+        <template #empty>
+          <slot name="empty"></slot>
+        </template>
         <template
           v-for="(column) in props.tableColumn"
           :key="column.label">
